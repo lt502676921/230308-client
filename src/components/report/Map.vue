@@ -1,6 +1,15 @@
 <template>
   <div class="com-container">
-    <div id="amap-container"></div>
+    <div id="container">
+      <div id="amap-container" />
+      <div id="map-imgs">
+        <el-carousel :interval="4000" type="card" height="100px" indicator-position="none">
+          <el-carousel-item v-for="item in mapImgs" :key="item.url">
+            <img class="el-carousel-item-img" :src="item.url" alt="" />
+          </el-carousel-item>
+        </el-carousel>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -15,6 +24,14 @@ export default {
       AMap: null,
       amap: null,
       markersCache: [],
+      mapImgs: [
+        { url: './static/images/1.png' },
+        { url: './static/images/2.png' },
+        { url: './static/images/3.jpeg' },
+        { url: './static/images/4.jpeg' },
+        { url: './static/images/5.jpeg' },
+        { url: './static/images/6.png' },
+      ],
     }
   },
   computed: {
@@ -62,8 +79,8 @@ export default {
           this.amap = new AMap.Map('amap-container', {
             //设置地图容器id
             viewMode: '3D', //是否为3D地图模式
-            zoom: 10, //初始化地图级别
-            center: [106.550483, 29.563707], //初始化地图中心点位置
+            zoom: 14, //初始化地图级别
+            center: [106.506277, 29.52528], //初始化地图中心点位置
           })
         })
         .catch(e => {
@@ -75,9 +92,30 @@ export default {
 </script>
 
 <style lang="less" scoped>
-#amap-container {
+#container {
   width: 100%;
   height: 100%;
   border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+#amap-container {
+  width: 100%;
+  height: 75%;
+  border-radius: 20px;
+}
+#map-imgs {
+  width: 100%;
+  height: 23%;
+}
+.el-carousel-item-img {
+  width: 100%;
+  height: 100%;
+}
+
+.el-carousel__item {
+  box-sizing: border-box;
+  border: 1px dashed #ffffff;
 }
 </style>
